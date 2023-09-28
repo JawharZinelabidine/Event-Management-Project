@@ -1,0 +1,30 @@
+{
+  "name": "index",
+  "version": "1.0.0",
+  "description": "project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JawharZinelabidine/Event-Management-Project.git"
+  },
+  "keywords": [
+    "event"
+  ],
+  "author": "jawhar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JawharZinelabidine/Event-Management-Project/issues"
+  },
+  "homepage": "https://github.com/JawharZinelabidine/Event-Management-Project#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "moment": "^2.29.4",
+    "mysql2": "^3.6.1",
+    "nodemon": "^3.0.1",
+    "sequelize": "^6.33.0"
+  }
+}
