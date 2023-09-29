@@ -16,6 +16,7 @@ const Login = ({ switchView }) => {
 
         } catch (error) {
             console.log(error)
+            alert('email already exists')
         }
 
     }
@@ -52,7 +53,7 @@ const Login = ({ switchView }) => {
         <div className="full-screen">
             <div className="containerSignIn">
                 <div className="login">
-                    <h1 className="signIn">Sign In</h1>
+                    <h1 className="signIn">Sign Up</h1>
                     <form name="formLogin" onSubmit={handleSubmit}>
                         <div className="input">
                             <label for="name">Name:</label>
@@ -67,9 +68,9 @@ const Login = ({ switchView }) => {
                             <input type="password" name="password" placeholder="Password" required onChange={handleChange} />
                         </div>
                         <div className="input">
-                            <input type="submit" value="Login" />
+                            <input type="submit" value="Sign Up" />
                         </div>
-                        <p>Don't have an account? Sign Up here</p>
+                        <button onClick={() => { switchView('eventList') }}>Already registered? Sign in!</button>
                     </form>
                 </div>
             </div>

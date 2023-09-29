@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment"
 
 
 const EventDetails = ({ clickedEvent }) => {
@@ -15,6 +16,7 @@ const EventDetails = ({ clickedEvent }) => {
             <div class="event-details-content">
                 <h4>{clickedEvent.name}</h4>
                 <div className="organizer">Organized by: {clickedEvent.owner}</div>
+                <div className="organizer">On: {moment(clickedEvent.date).format('MMMM Do YYYY, h:mm a')}</div>
                 <div className="type">{clickedEvent.type}</div>
 
 

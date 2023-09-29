@@ -25,14 +25,32 @@ const getAllOwners = () => {
 
 const addUser = (name, password, email) => {
 
-    return connection.promise().query('INSERT INTO USERS (name, email, password) VALUES (?,?,?)', [name, email, password])
+    return connection.promise().query('INSERT INTO users (name, password, email) VALUES (?,?,?)', [name, password, email])
+
+}
+
+const getUserByEmail = (email) => {
+
+    return connection.promise().query('SELECT * FROM users WHERE users.email= "' + email + '" ;')
+}
+
+const addEvent = (name, date, organizer, type, imageUrl, details, location) => {
+
+    const values = [name, date, organizer, type, imageUrl, details, location]
+
+    return connection.promise().query('INSERT INTO events (name, date, organizer, type, imageUrl, details, location) VALUES (?,?,?,?,?,?,?)', values)
+
+}
+
+const createAttendees = (userID, eventID) => {
+
+    return connection.promise().query('INSERT INTO attendees (users_id, events_id ) VALUES (?,?)', [userID, eventID])
 
 }
 
 
-
-
 module.exports = {
 
-    getAllEvents, getAllOwners, addUser
+    getAllEvents, getAllOwners, addUser, getUserByEmail,
+    addEvent, createAttendees
 }
