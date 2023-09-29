@@ -1,49 +1,19 @@
 import React from "react";
+import EventListItems from "./EventListItems.jsx";
 
 
-const EventList = () => {
+const EventList = ({ events, users, switchView }) => {
 
 
     return (
 
         <div>
             <div className="event-list">
-                <div className="event-card">
-                    <img src="https://i.imgur.com/xdbHo4E.png" alt="" />
-                    <span className="event-type">Party</span>
-                    <h4><a href="">House Party at John's</a></h4>
-                    <p>It's going to be so much fun</p>
-                    <div className="event-bottom-card">
-                        <button>Participate</button>
-                    </div>
-                </div>
-                <div className="event-card">
-                    <img src="https://i.imgur.com/xdbHo4E.png" alt="" />
-                    <span className="event-type">Party</span>
-                    <h4><a href="">House Party at John's</a></h4>
-                    <p>It's going to be so much fun</p>
-                    <div className="event-bottom-card">
-                        <button>Participate</button>
-                    </div>
-                </div>
-                <div className="event-card">
-                    <img src="https://i.imgur.com/xdbHo4E.png" alt="" />
-                    <span className="event-type">Party</span>
-                    <h4><a href="">House Party at John's</a></h4>
-                    <p>It's going to be so much fun</p>
-                    <div className="event-bottom-card">
-                        <button>Participate</button>
-                    </div>
-                </div>
-                <div className="event-card">
-                    <img src="https://i.imgur.com/xdbHo4E.png" alt="" />
-                    <span className="event-type">Party</span>
-                    <h4><a href="">House Party at John's</a></h4>
-                    <p>It's going to be so much fun</p>
-                    <div className="event-bottom-card">
-                        <button>Participate</button>
-                    </div>
-                </div>
+
+                {events.map((event) => {
+
+                    return <EventListItems key={event.id} event={event} users={users} switchView={switchView} />
+                })}
 
             </div>
         </div>
