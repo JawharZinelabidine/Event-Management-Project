@@ -68,7 +68,7 @@ const Login = ({ setTokenAndUser, switchView }) => {
                         <div className="input">
                             <input type="submit" value="Login" />
                         </div>
-                        <button onClick={() => { switchView('signup') }}>Don't have an account? Sign Up here</button>
+                        <button className="redirect" onClick={() => { switchView('signup') }}>Don't have an account? Sign Up here</button>
                     </form>
                 </div>
             </div>

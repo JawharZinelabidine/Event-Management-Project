@@ -70,7 +70,7 @@ const Login = ({ switchView }) => {
                         <div className="input">
                             <input type="submit" value="Sign Up" />
                         </div>
-                        <button onClick={() => { switchView('eventList') }}>Already registered? Sign in!</button>
+                        <button className='redirect' onClick={() => { switchView('eventList') }}>Already registered? Sign in!</button>
                     </form>
                 </div>
             </div>

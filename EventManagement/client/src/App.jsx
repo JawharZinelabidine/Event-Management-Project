@@ -177,12 +177,15 @@ function App() {
         </div>
       </nav>
       <section className="home">
+        {view === 'eventList' && <h1 className='header'>Welcome to the Internet's Best Event Website!</h1>}
+        {view === 'going' && <h1 className='header'>Your Upcoming Events!</h1>}
+        {view === 'hosting' && <h1 className='header'>Your Events</h1>}
         {view === 'createEvent' && <CreateEvent user={currentUser} add={createEvent} switchView={switchView} />}
         {view === 'updateEvent' && <UpdateEvent clickedEvent={clickedEvent} user={currentUser} switchView={switchView} update={updateEvent} />}
         {view === 'eventDetails' && <EventDetails clickedEvent={clickedEvent} myUser={currentUser} participate={participate} />}
 
       </section>
-      <div >
+      <div className='display'>
         {view === 'eventList' && <EventList events={events} users={users} switchView={switchView} participate={participate} myUser={currentUser} />}
         {view === 'going' && <Going events={events} users={users} switchView={switchView} myUser={currentUser} />}
         {view === 'hosting' && <Hosting events={events} users={users} switchView={switchView} myUser={currentUser} remove={removeEvent} />}

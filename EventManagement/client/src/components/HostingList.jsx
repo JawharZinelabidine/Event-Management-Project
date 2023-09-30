@@ -12,8 +12,8 @@ const HostingList = ({ event, switchView, myUser, remove }) => {
                 <div className="event-type">Organized by: {myUser.name}</div>
                 <div className="event-type">{event.type}</div>
                 <div className="event-type">{moment(event.date).fromNow()}</div>
-                <h4>{event.name}</h4>
-                <p>{event.details.substring(0, 93)}...</p>
+                <h4 className="hosting-name">{event.name}</h4>
+                <p className="event-description">{event.details.substring(0, 93)}...</p>
                 <div className="event-bottom-card">
                     <button className="participate" onClick={() => { switchView('updateEvent', event) }}>Update</button>
                     <button className="participate" onClick={() => { remove(event.id) }}>Remove</button>

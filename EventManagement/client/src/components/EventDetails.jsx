@@ -42,13 +42,16 @@ const EventDetails = ({ clickedEvent, myUser, participate }) => {
         <div className="event-details">
             <img src={clickedEvent.imageUrl} alt="no content" />
             <div className="event-details-content">
-                <h4>{clickedEvent.name}</h4>
+                <div className="event-location">
+                    <h4 >Location: {clickedEvent.location}</h4>
+                </div>
                 <div className="organizer">Organized by: {clickedEvent.owner}</div>
                 <div className="organizer">On: {moment(clickedEvent.date).format('MMMM Do YYYY, h:mm a')}</div>
                 <div className="type">{clickedEvent.type}</div>
-
-
-                <p>{clickedEvent.details}</p>
+                <h4 className="details-name" >{clickedEvent.name}</h4>
+                <div className="details-description">
+                    <p >{clickedEvent.details}</p>
+                </div>
                 <div className="button">
                     <button className="participate" onClick={() => { toggleLabel() }} >{buttonLabel}</button>
                 </div>

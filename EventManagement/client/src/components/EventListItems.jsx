@@ -55,8 +55,8 @@ const EventListItems = ({ event, users, switchView, participate, myUser }) => {
                 <div className="event-type">Organized by: {thisEvent.owner}</div>
                 <div className="event-type">{thisEvent.type}</div>
                 <div className="event-type">{moment(thisEvent.date).fromNow()}</div>
-                <h4>{thisEvent.name}</h4>
-                <p>{thisEvent.details.substring(0, 93)}...</p>
+                <h4 className="event-name" onClick={() => { switchView('eventDetails', thisEvent) }}>{thisEvent.name}</h4>
+                <p className="event-description">{thisEvent.details.substring(0, 93)}...</p>
                 <div className="event-bottom-card">
                     <button className="participate" onClick={() => { toggleLabel() }}>{buttonLabel}</button>
                 </div>
