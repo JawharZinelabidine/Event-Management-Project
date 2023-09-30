@@ -1,9 +1,15 @@
 import React from "react";
 import moment from "moment";
 
-const GoingList = ({ event, myUser, remove, switchView }) => {
+const GoingList = ({ event, myUser, remove, switchView, users }) => {
 
 
+    const user = users.slice().find((user) => {
+        return user.id === event.organizer
+    })
+
+    const thisEvent = event
+    thisEvent.owner = user.name
 
 
     return (
@@ -11,12 +17,12 @@ const GoingList = ({ event, myUser, remove, switchView }) => {
         <>
 
             <div className="event-card">
-                <img src={event.imageUrl} alt="no content" onClick={() => { switchView('eventDetails', event) }} />
-                <div className="event-type">Organized by: {event.name}</div>
-                <div className="event-type">{event.type}</div>
-                <div className="event-type">{moment(event.date).fromNow()}</div>
-                <h4 className="event-name" onClick={() => { switchView('eventDetails', thisEvent) }} >{event.name}</h4>
-                <p className="event-description">{event.details.substring(0, 93)}...</p>
+                <img src={thisEvent.imageUrl} alt="no content" onClick={() => { switchView('eventDetails', event) }} />
+                <div className="event-type">Organized by: {thisEvent.owner}</div>
+                <div className="event-type">{thisEvent.type}</div>
+                <div className="event-type">{moment(thisEvent.date).fromNow()}</div>
+                <h4 className="event-name" onClick={() => { switchView('eventDetails', thisEvent) }} >{thisEvent.name}</h4>
+                <p className="event-description">{thisEvent.details.substring(0, 93)}...</p>
                 <div className="event-bottom-card">
                     <button className="participate" onClick={() => { remove(myUser.id, event.events_id); }}>Remove</button>
                 </div>
