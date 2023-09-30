@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment"
 import axios from "axios";
 
@@ -33,7 +33,11 @@ const EventDetails = ({ clickedEvent, myUser, participate }) => {
         localStorage.setItem('participate' + clickedEvent.id + '-' + myUser.id, newLabel);
     };
 
+    useEffect(() => {
 
+        setButtonLabel(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.id))
+
+    })
 
 
     return (

@@ -4,7 +4,7 @@ import GoingList from "./GoingList.jsx";
 
 
 
-const Going = ({ myUser, users, switchView }) => {
+const Going = ({ myUser, users, switchView, events }) => {
 
     const [myEvents, setMyEvents] = useState([])
 
@@ -50,7 +50,7 @@ const Going = ({ myUser, users, switchView }) => {
 
                 {sortedEvents.map((event) => {
 
-                    return <GoingList key={event.events_id} event={event} myUser={myUser} remove={deleteEvent} users={users} switchView={switchView} />
+                    return <GoingList key={event.events_id} event={event} myUser={myUser} remove={deleteEvent} users={users} switchView={switchView} events={events} />
                 })}
 
             </div>

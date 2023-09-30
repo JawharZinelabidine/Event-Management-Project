@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-const GoingList = ({ event, myUser, remove, switchView, users }) => {
+const GoingList = ({ event, myUser, remove, switchView, users, events }) => {
 
 
     const user = users.slice().find((user) => {
@@ -12,12 +12,18 @@ const GoingList = ({ event, myUser, remove, switchView, users }) => {
     thisEvent.owner = user.name
 
 
+    const theEvent = events.slice().find((event) => {
+
+        return event.name === thisEvent.name
+    })
+
+
     return (
 
         <>
 
             <div className="event-card">
-                <img src={thisEvent.imageUrl} alt="no content" onClick={() => { switchView('eventDetails', event) }} />
+                <img src={thisEvent.imageUrl} alt="no content" onClick={() => { switchView('eventDetails', theEvent); console.log(theEvent) }} />
                 <div className="event-type">Organized by: {thisEvent.owner}</div>
                 <div className="event-type">{thisEvent.type}</div>
                 <div className="event-type">{moment(thisEvent.date).fromNow()}</div>
