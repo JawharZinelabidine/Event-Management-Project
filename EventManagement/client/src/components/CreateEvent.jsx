@@ -14,6 +14,7 @@ const CreateEvent = ({ user, add, switchView }) => {
 
         setEvent({ ...event, [name]: value })
 
+
     }
 
     const handleSubmit = (e) => {
@@ -28,11 +29,11 @@ const CreateEvent = ({ user, add, switchView }) => {
 
     return (
 
-        <div className="addForm" onSubmit={handleSubmit}>
-            <form >
+        <div className="addForm" >
+            <form onSubmit={handleSubmit}>
                 <label for="name">Event Name</label>
                 <input type="text" name="name" onChange={handleChange} />
-                <label for="type">Event Type</label>
+                <label for="type" >Event Type</label>
                 <input type="text" name="type" onChange={handleChange} />
                 <label for="imageUrl">Event Image</label>
                 <input type="text" name="imageUrl" onChange={handleChange} />

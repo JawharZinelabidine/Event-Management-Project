@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import moment from 'moment'
-
+import axios from "axios";
 
 const EventListItems = ({ event, users, switchView, participate, myUser }) => {
 
@@ -12,20 +12,36 @@ const EventListItems = ({ event, users, switchView, participate, myUser }) => {
     const thisEvent = event
     thisEvent.owner = user.name
 
-    const buttonValue = localStorage.getItem('participate') === true
 
 
-    let [changeText, setChangeText] = useState(true);
+    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + thisEvent.id + '-' + myUser.id) || 'Participate');
 
 
+    const deleteEvent = async (userID, eventID) => {
+
+        try {
+            await axios.delete('http://localhost:3000/api/attendees/' + userID + '/' + eventID)
+
+        } catch (error) {
+            console.log(error)
+        }
 
 
-    const handleChange = () => {
-        setChangeText(!changeText);
+    }
 
-
+    const toggleLabel = () => {
+        let newLabel = ''
+        if (buttonLabel === 'Participate') {
+            newLabel = 'Going!'
+            participate({ users_id: myUser.id, events_id: event.id })
+        }
+        else {
+            newLabel = 'Participate'
+            deleteEvent(myUser.id, thisEvent.id)
+        }
+        setButtonLabel(newLabel);
+        localStorage.setItem('participate' + thisEvent.id + '-' + myUser.id, newLabel);
     };
-
 
 
 
@@ -42,7 +58,7 @@ const EventListItems = ({ event, users, switchView, participate, myUser }) => {
                 <h4>{thisEvent.name}</h4>
                 <p>{thisEvent.details.substring(0, 93)}...</p>
                 <div className="event-bottom-card">
-                    <button className="participate" onClick={() => { handleChange(); participate({ users_id: myUser.id, events_id: event.id }) }}>{changeText ? "Participate" : "Going!"}</button>
+                    <button className="participate" onClick={() => { toggleLabel() }}>{buttonLabel}</button>
                 </div>
             </div>
         </>

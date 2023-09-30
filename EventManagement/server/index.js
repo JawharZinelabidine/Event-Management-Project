@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { getAllEvents, getAllOwners, addUser, getUserByEmail, addEvent, createAttendees } = require('./database/')
+const { getAllEvents, getAllOwners, addUser, getUserByEmail, addEvent, createAttendees, getAttendee, removeAttendee, updateEvent, removeEvent } = require('./database/')
 
 
 const app = express()
@@ -41,6 +41,39 @@ app.post('/api/events', async (req, res) => {
     }
 
 })
+
+
+app.put('/api/events/:id', async (req, res) => {
+    const { name, date, organizer, type, imageUrl, details, location } = req.body
+    const { id } = req.params
+    try {
+        const [result] = await updateEvent(name, date, organizer, type, imageUrl, details, location, id)
+        res.status(201).json(result)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json
+
+    }
+
+})
+
+
+app.delete('/api/events/:id', async (req, res) => {
+    const id = req.params.id
+    try {
+        const [result] = await removeEvent(id)
+        res.status(204).json(result)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json
+
+    }
+
+})
+
+
 
 app.get('/api/users', async (req, res) => {
 
@@ -107,11 +140,36 @@ app.post('/api/users-login', async (req, res) => {
 
 })
 
+app.get('/api/attendees/:id', async (req, res) => {
+
+    const { id } = req.params
+    try {
+        const [result] = await getAttendee(id)
+        res.status(200).json(result)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+
+    }
+})
+
+app.delete('/api/attendees/:userID/:eventID', async (req, res) => {
+
+    const { userID, eventID } = req.params
+    try {
+        const [result] = await removeAttendee(userID, eventID)
+        res.status(200).json(result)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+
+    }
+})
+
 
 app.post('/api/attendees', async (req, res) => {
 
     const { users_id, events_id } = req.body
-    console.log(users_id, events_id)
     try {
         const [result] = await createAttendees(users_id, events_id)
         res.status(201).json(result)

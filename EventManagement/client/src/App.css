@@ -259,7 +259,7 @@ a {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 3px solid blue;
+  border: 3px solid #00E676;
   padding: 0px 40px 40px;
   max-width: 1000px;
 }
