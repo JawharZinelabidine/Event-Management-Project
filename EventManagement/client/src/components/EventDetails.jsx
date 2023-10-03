@@ -5,7 +5,7 @@ import axios from "axios";
 
 const EventDetails = ({ clickedEvent, myUser, participate }) => {
 
-    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.id) || 'Participate');
+    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.id));
 
     const deleteEvent = async (userID, eventID) => {
 
@@ -23,7 +23,7 @@ const EventDetails = ({ clickedEvent, myUser, participate }) => {
         let newLabel = ''
         if (buttonLabel === 'Participate') {
             newLabel = 'Going!'
-            participate({ users_id: myUser.id, events_id: clickedEvent.id })
+            participate(myUser.id, clickedEvent.id)
         }
         else {
             newLabel = 'Participate'
@@ -44,7 +44,7 @@ const EventDetails = ({ clickedEvent, myUser, participate }) => {
 
 
         <div className="event-details">
-            <img src={clickedEvent.imageUrl} alt="no content" />
+            <img src={clickedEvent.imageUrl} alt="no content" onClick={() => { console.log(buttonLabel) }} />
             <div className="event-details-content">
                 <div className="event-location">
                     <h4 >Location: {clickedEvent.location}</h4>
@@ -57,7 +57,7 @@ const EventDetails = ({ clickedEvent, myUser, participate }) => {
                     <p >{clickedEvent.details}</p>
                 </div>
                 <div className="button">
-                    <button className="participate" onClick={() => { toggleLabel() }} >{buttonLabel}</button>
+                    <button className="participate" onClick={() => { toggleLabel() }} >{buttonLabel || 'Participate'}</button>
                 </div>
 
             </div>

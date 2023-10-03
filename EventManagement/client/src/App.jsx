@@ -113,10 +113,10 @@ function App() {
 
 
 
-  const participate = async (attendee) => {
+  const participate = async (users_ID, events_ID) => {
 
     try {
-      await axios.post('http://localhost:3000/api/attendees', attendee)
+      await axios.post('http://localhost:3000/api/attendees/' + users_ID + '/' + events_ID)
 
     } catch (error) {
       console.log(error)

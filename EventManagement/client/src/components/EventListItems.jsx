@@ -33,7 +33,7 @@ const EventListItems = ({ event, users, switchView, participate, myUser }) => {
         let newLabel = ''
         if (buttonLabel === 'Participate') {
             newLabel = 'Going!'
-            participate({ users_id: myUser.id, events_id: event.id })
+            participate(myUser.id, event.id)
         }
         else {
             newLabel = 'Participate'
