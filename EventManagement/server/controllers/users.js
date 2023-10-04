@@ -3,9 +3,6 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
-const JWT_SECRET = "d;lagmdsfklbmado[gqewr=t0i23482151345198498{}[]<>>:D:WQ{EKGD>S:C<OE+fek=wro0'"
-
-
 
 module.exports = {
     addUser: async (req, res) => {

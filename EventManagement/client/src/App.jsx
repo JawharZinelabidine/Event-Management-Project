@@ -137,7 +137,6 @@ function App() {
   useEffect(() => {
 
     fetchUsers()
-    fetchEvents()
   }, [])
 
   const switchView = (view, event) => {

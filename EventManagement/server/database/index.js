@@ -36,6 +36,7 @@ db.Events.belongsTo(db.Users, {
 db.Users.belongsToMany(db.Events, { through: db.Attendees, foreignKey: 'users_id', as: 'Attendee' });
 db.Events.belongsToMany(db.Users, { through: db.Attendees, foreignKey: 'events_id', as: 'Attendee' });
 
+
 const connect = async () => {
     try {
         await db.sequelize.authenticate();
@@ -45,15 +46,6 @@ const connect = async () => {
     }
 
 }
-(async () => {
-    try {
-        const columns = await db.Attendees.describe();
-
-        console.log('Column names of the Attendees table:', Object.keys(columns));
-    } catch (error) {
-        console.error('Error:', error);
-    }
-})();
 
 
 connect()

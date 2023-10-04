@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const isAuthenticated = require('../controllers/isAuthenticated')
 
 
 
-const { getAllEvents, addEvent, updateEvent, removeEvent, isAuthenticated } = require('../controllers/events');
+const { getAllEvents, addEvent, updateEvent, removeEvent } = require('../controllers/events');
 
 
 router.route('/events')
@@ -13,7 +12,7 @@ router.route('/events')
     .post(addEvent);
 
 router.route('/events/:id')
-    .put(updateEvent)
-    .delete(removeEvent);
+    .put(isAuthenticated, updateEvent)
+    .delete(isAuthenticated, removeEvent);
 
 module.exports = router;

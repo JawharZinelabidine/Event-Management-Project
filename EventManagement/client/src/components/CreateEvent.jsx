@@ -13,8 +13,19 @@ const CreateEvent = ({ user, add, switchView }) => {
         const value = e.target.value
 
         setEvent({ ...event, [name]: value })
+        console.log(event)
 
 
+    }
+
+    const handleImage = (e) => {
+        const name = e.target.name
+        const file = e.target.files[0]
+        if (file) {
+            const imageURL = URL.createObjectURL(file)
+            setEvent({ ...event, [name]: imageURL })
+
+        }
     }
 
     const handleSubmit = (e) => {
@@ -36,7 +47,7 @@ const CreateEvent = ({ user, add, switchView }) => {
                 <label for="type" >Event Type</label>
                 <input type="text" name="type" onChange={handleChange} />
                 <label for="imageUrl">Event Image</label>
-                <input type="text" name="imageUrl" onChange={handleChange} />
+                <input type="file" name="imageUrl" onChange={handleImage} />
                 <label for="date">Event Date</label>
                 <input type="datetime-local" name="date" onChange={handleChange} />
                 <label for="details">Event Details</label>

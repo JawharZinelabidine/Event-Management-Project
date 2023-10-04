@@ -527,3 +527,16 @@ input[type="submit"]:hover {
   background-color: #fdf4dc;
   cursor: pointer;
 }
+
+input[type='file']::after {
+  content: 'Pick an image file';
+  color: black;
+  margin-right: 30px;
+
+}
+
+input[type='file'] {
+  overflow: hidden;
+  width: 90px;
+
+}

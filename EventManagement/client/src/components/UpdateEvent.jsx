@@ -20,6 +20,17 @@ const UpdateEvent = ({ clickedEvent, user, switchView, update }) => {
 
     }
 
+
+    const handleImage = (e) => {
+        const name = e.target.name
+        const file = e.target.files[0]
+        if (file) {
+            const imageURL = URL.createObjectURL(file)
+            setEvent({ ...event, [name]: imageURL })
+
+        }
+    }
+
     const handleSubmit = (e) => {
 
         e.preventDefault()
@@ -39,7 +50,7 @@ const UpdateEvent = ({ clickedEvent, user, switchView, update }) => {
                 <label for="type">Update Type</label>
                 <input type="text" name="type" placeholder={event.type} onChange={handleChange} />
                 <label for="imageUrl">Update Image</label>
-                <input type="text" name="imageUrl" placeholder={event.imageUrl} onChange={handleChange} />
+                <input type="file" name="imageUrl" placeholder={event.imageUrl} onChange={handleImage} />
                 <label for="date">Update Date</label>
                 <input type="datetime-local" name="date" onChange={handleChange} />
                 <label for="details">Update Details</label>
