@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 const CreateEvent = ({ user, add, switchView }) => {
 
-    const [event, setEvent] = useState({ organizer: user.id })
+    const [event, setEvent] = useState({ organizer: user.user.id })
 
 
     const handleChange = (e) => {

@@ -11,7 +11,7 @@ const Going = ({ myUser, users, switchView, events }) => {
     const fetchMyEvents = async () => {
 
         try {
-            const { data } = await axios.get('http://localhost:3000/api/attendees/' + myUser.id)
+            const { data } = await axios.get('http://localhost:3000/api/attendees/' + myUser.user.id)
             setMyEvents(data)
 
         } catch (error) {

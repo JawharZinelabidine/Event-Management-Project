@@ -1,6 +1,7 @@
 const { Users } = require("../database")
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const JWT_SECRET = "d;lagmdsfklbmado[gqewr=t0i23482151345198498{}[]<>>:D:WQ{EKGD>S:C<OE+fek=wro0'"
 
@@ -21,8 +22,26 @@ module.exports = {
             res.status(500).send(error)
         }
     },
-    verifyUser: async (req, res) => {
+    verifyToken: (req, res, next) => {
+        req.user = { user: null, verified: false }
+        const bearerHeader = req.headers['authorization']
+        if (typeof bearerHeader !== 'undefined') {
+            const bearerToken = bearerHeader.split(' ')[1]
+            jwt.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET, function (err, data) {
+                if (!(err && typeof data === 'undefined')) {
+                    req.user = { user: data.user, verified: true }
+                    next()
+                }
+                if (err) {
+                    console.log(err)
+                }
+            })
+        }
+        return res.status(403).send('invalid token')
+    },
+    login: async (req, res) => {
         const { email, password } = req.body
+        let token = null
         try {
             const user = await Users.findAll({
                 where: {
@@ -30,17 +49,22 @@ module.exports = {
                 }
             });
             if (!user.length) {
-
                 res.status(404).send('Email not found')
             }
             const result = await bcrypt.compare(password, user[0].password)
-            const token = jwt.sign({}, JWT_SECRET)
+
             if (result) {
-                res.status(200).json({ data: token, user: user[0] })
+
+                token = await jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
+            }
+            if (token) {
+
+                res.status(201).json({ token: token, user: user[0] })
             }
             else res.status(401).send('Invalid password')
 
         } catch (error) {
+            console.log(error)
             res.status(500).send("Failed to load resource");
         }
     },

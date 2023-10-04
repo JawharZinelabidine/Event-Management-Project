@@ -30,7 +30,7 @@ const GoingList = ({ event, myUser, remove, switchView, users, events }) => {
                 <h4 className="event-name" onClick={() => { switchView('eventDetails', thisEvent) }} >{thisEvent.name}</h4>
                 <p className="event-description">{thisEvent.details.substring(0, 93)}...</p>
                 <div className="event-bottom-card">
-                    <button className="participate" onClick={() => { remove(myUser.id, event.id); }}>Remove</button>
+                    <button className="participate" onClick={() => { remove(myUser.user.id, event.id); }}>Remove</button>
                 </div>
             </div>
         </>

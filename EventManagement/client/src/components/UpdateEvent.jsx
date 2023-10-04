@@ -5,7 +5,7 @@ import React, { useState } from "react";
 const UpdateEvent = ({ clickedEvent, user, switchView, update }) => {
 
     const [event, setEvent] = useState({
-        name: clickedEvent.name, date: clickedEvent.date.replace('Z', ''), organizer: user.id, type: clickedEvent.type,
+        name: clickedEvent.name, date: clickedEvent.date.replace('Z', ''), organizer: user.user.id, type: clickedEvent.type,
         imageUrl: clickedEvent.imageUrl, details: clickedEvent.details, location: clickedEvent.location
     })
 

@@ -9,7 +9,7 @@ const HostingList = ({ event, switchView, myUser, remove }) => {
 
             <div className="event-card">
                 <img src={event.imageUrl} alt="no content" />
-                <div className="event-type">Organized by: {myUser.name}</div>
+                <div className="event-type">Organized by: {myUser.user.name}</div>
                 <div className="event-type">{event.type}</div>
                 <div className="event-type">{moment(event.date).fromNow()}</div>
                 <h4 className="hosting-name">{event.name}</h4>

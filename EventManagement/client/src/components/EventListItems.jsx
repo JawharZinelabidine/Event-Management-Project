@@ -14,7 +14,7 @@ const EventListItems = ({ event, users, switchView, participate, myUser }) => {
 
 
 
-    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + thisEvent.id + '-' + myUser.id) || 'Participate');
+    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + thisEvent.id + '-' + myUser.user.id) || 'Participate');
 
 
     const deleteEvent = async (userID, eventID) => {
@@ -33,14 +33,14 @@ const EventListItems = ({ event, users, switchView, participate, myUser }) => {
         let newLabel = ''
         if (buttonLabel === 'Participate') {
             newLabel = 'Going!'
-            participate(myUser.id, event.id)
+            participate(myUser.user.id, event.id)
         }
         else {
             newLabel = 'Participate'
-            deleteEvent(myUser.id, thisEvent.id)
+            deleteEvent(myUser.user.id, thisEvent.id)
         }
         setButtonLabel(newLabel);
-        localStorage.setItem('participate' + thisEvent.id + '-' + myUser.id, newLabel);
+        localStorage.setItem('participate' + thisEvent.id + '-' + myUser.user.id, newLabel);
     };
 
 

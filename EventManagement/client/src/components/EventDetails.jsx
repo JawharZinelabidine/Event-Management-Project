@@ -5,7 +5,7 @@ import axios from "axios";
 
 const EventDetails = ({ clickedEvent, myUser, participate }) => {
 
-    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.id));
+    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.user.id));
 
     const deleteEvent = async (userID, eventID) => {
 
@@ -23,19 +23,19 @@ const EventDetails = ({ clickedEvent, myUser, participate }) => {
         let newLabel = ''
         if (buttonLabel === 'Participate') {
             newLabel = 'Going!'
-            participate(myUser.id, clickedEvent.id)
+            participate(myUser.user.id, clickedEvent.id)
         }
         else {
             newLabel = 'Participate'
-            deleteEvent(myUser.id, clickedEvent.id)
+            deleteEvent(myUser.user.id, clickedEvent.id)
         }
         setButtonLabel(newLabel);
-        localStorage.setItem('participate' + clickedEvent.id + '-' + myUser.id, newLabel);
+        localStorage.setItem('participate' + clickedEvent.id + '-' + myUser.user.id, newLabel);
     };
 
     useEffect(() => {
 
-        setButtonLabel(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.id))
+        setButtonLabel(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.user.id))
 
     })
 

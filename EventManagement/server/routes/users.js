@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const { addUser, verifyUser, getAllUsers } = require('../controllers/users');
+const { addUser, verifyToken, login, getAllUsers } = require('../controllers/users');
+
+
+
 
 
 router.route('/users')
@@ -9,6 +14,6 @@ router.route('/users')
     .get(getAllUsers)
 
 router.route('/users-login')
-    .post(verifyUser);
+    .post(login, verifyToken);
 
 module.exports = router;

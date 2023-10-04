@@ -13,7 +13,7 @@ import UpdateEvent from './components/UpdateEvent.jsx'
 function App() {
 
   const [token, setToken] = useState()
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState({ auth: false, user: {} })
   const [view, setView] = useState('eventList')
   const [events, setEvents] = useState([])
   const [users, setUsers] = useState([])
@@ -36,7 +36,7 @@ function App() {
       const userToken = JSON.parse(token)
       const user = JSON.parse(users)
       setToken(userToken)
-      setCurrentUser(user)
+      setCurrentUser({ ...currentUser, auth: true, user: user })
     }
   }
 
@@ -46,11 +46,13 @@ function App() {
 
     try {
       const { data } = await axios.get('http://localhost:3000/api/users')
+      axios.defaults.headers.common['Authorization'] = 'Bearer' + ' ' + token
       setUsers(data)
       fetchEvents()
       console.log(events)
     } catch (error) {
       console.log(error)
+
 
     }
 
@@ -62,9 +64,12 @@ function App() {
 
     try {
       const { data } = await axios.get('http://localhost:3000/api/events')
+      axios.defaults.headers.common['Authorization'] = 'Bearer' + ' ' + token
       setEvents(data)
     } catch (error) {
       console.log(error)
+      emptyLocalStorge()
+      setToken(null)
 
     }
 
@@ -80,6 +85,7 @@ function App() {
     } catch (error) {
       console.log(error)
 
+
     }
 
   }
@@ -93,6 +99,7 @@ function App() {
     } catch (error) {
       console.log(error)
 
+
     }
 
   }
@@ -104,6 +111,7 @@ function App() {
       fetchUsers()
     } catch (error) {
       console.log(error)
+
 
     }
 
@@ -129,7 +137,7 @@ function App() {
   useEffect(() => {
 
     fetchUsers()
-
+    fetchEvents()
   }, [])
 
   const switchView = (view, event) => {
@@ -164,13 +172,13 @@ function App() {
       <nav className="nav">
         <div className="container">
           <div className="logo">
-            <h1 onClick={() => { switchView('eventList') }}>Eventify</h1>
+            <h1 onClick={() => { switchView('eventList'); fetchEvents() }}>Eventify</h1>
           </div>
           <div id="mainListDiv" className="main_list">
             <ul className="navlinks">
-              <li onClick={() => { switchView('createEvent') }}>Host Event</li>
-              <li onClick={() => { switchView('going') }}>Going</li>
-              <li onClick={() => { switchView('hosting') }}>Hosting</li>
+              <li onClick={() => { switchView('createEvent'); fetchEvents() }}>Host Event</li>
+              <li onClick={() => { switchView('going'); fetchEvents() }}>Going</li>
+              <li onClick={() => { switchView('hosting'); fetchEvents() }}>Hosting</li>
               <li id='logout' onClick={() => { emptyLocalStorge(); setToken(null) }}>Log out</li>
             </ul>
           </div>
@@ -189,6 +197,7 @@ function App() {
         {view === 'eventList' && <EventList events={events} users={users} switchView={switchView} participate={participate} myUser={currentUser} />}
         {view === 'going' && <Going events={events} users={users} switchView={switchView} myUser={currentUser} />}
         {view === 'hosting' && <Hosting events={events} users={users} switchView={switchView} myUser={currentUser} remove={removeEvent} />}
+
 
 
       </div>

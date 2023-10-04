@@ -1,3 +1,69 @@
+const { Sequelize, DataTypes } = require("sequelize");
+
+const sequelize = new Sequelize('EventsDB', 'root', 'root',
+    {
+        host: 'localhost',
+        dialect: "mysql",
+        define: {
+            timestamps: false
+        }
+    },
+
+);
+
+
+const db = {};
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+db.Users = require("./users.model")(sequelize, DataTypes);
+db.Events = require("./events.model")(sequelize, DataTypes);
+db.Attendees = require("./attendees.model")(sequelize, DataTypes);
+
+
+db.Users.hasMany(db.Events, {
+    foreignKey: "organizer",
+});
+
+db.Events.belongsTo(db.Users, {
+    as: "organizers",
+    foreignKey: "organizer",
+    onDelete: "CASCADE",
+});
+
+
+db.Users.belongsToMany(db.Events, { through: db.Attendees, foreignKey: 'users_id', as: 'Attendee' });
+db.Events.belongsToMany(db.Users, { through: db.Attendees, foreignKey: 'events_id', as: 'Attendee' });
+
+const connect = async () => {
+    try {
+        await db.sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+
+}
+(async () => {
+    try {
+        const columns = await db.Attendees.describe();
+
+        console.log('Column names of the Attendees table:', Object.keys(columns));
+    } catch (error) {
+        console.error('Error:', error);
+    }
+})();
+
+
+connect()
+
+
+
+module.exports = db;
+
+
+
 // const mysql = require('mysql2')
 // const connection = mysql.createConnection({
 //     host: 'localhost',
@@ -82,72 +148,3 @@
 //     getAllEvents, getAllOwners, addUser, getUserByEmail,
 //     addEvent, createAttendees, getAttendee, removeAttendee, updateEvent, removeEvent
 // }
-
-
-
-
-const { Sequelize, DataTypes } = require("sequelize");
-
-const sequelize = new Sequelize('EventsDB', 'root', 'root',
-    {
-        host: 'localhost',
-        dialect: "mysql",
-        define: {
-            timestamps: false
-        }
-    },
-
-);
-
-
-const db = {};
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-db.Users = require("./users.model")(sequelize, DataTypes);
-db.Events = require("./events.model")(sequelize, DataTypes);
-db.Attendees = require("./attendees.model")(sequelize, DataTypes);
-
-
-db.Users.hasMany(db.Events, {
-    foreignKey: "organizer",
-});
-
-db.Events.belongsTo(db.Users, {
-    as: "organizers",
-    foreignKey: "organizer",
-    onDelete: "CASCADE",
-});
-
-
-db.Users.belongsToMany(db.Events, { through: db.Attendees, foreignKey: 'users_id', as: 'Attendee' });
-db.Events.belongsToMany(db.Users, { through: db.Attendees, foreignKey: 'events_id', as: 'Attendee' });
-
-const connect = async () => {
-    try {
-        await db.sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
-
-}
-(async () => {
-    try {
-        const columns = await db.Attendees.describe();
-
-        console.log('Column names of the Attendees table:', Object.keys(columns));
-    } catch (error) {
-        console.error('Error:', error);
-    }
-})();
-
-
-connect()
-
-
-
-module.exports = db;
-
-

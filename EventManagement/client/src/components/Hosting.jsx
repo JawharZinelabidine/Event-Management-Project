@@ -8,7 +8,7 @@ const EventList = ({ events, users, switchView, myUser, remove }) => {
 
     const hostedEvents = sortedEvents.filter((event) => {
 
-        return myUser.id === event.organizer
+        return myUser.user.id === event.organizer
     })
 
     return (

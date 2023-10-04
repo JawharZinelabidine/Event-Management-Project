@@ -12,7 +12,8 @@ const Login = ({ setTokenAndUser, switchView }) => {
     const logIn = async (credentials) => {
         try {
             const { data } = await axios.post('http://localhost:3000/api/users-login', credentials)
-            console.log(data.data)
+            console.log(data.token)
+            axios.defaults.headers.common['Authorization'] = 'Bearer' + ' ' + data.token
             return data
 
         } catch (error) {
@@ -38,10 +39,10 @@ const Login = ({ setTokenAndUser, switchView }) => {
 
         e.preventDefault()
 
-        const { data, user } = await logIn(credentials)
+        const { token, user } = await logIn(credentials)
 
 
-        setTokenAndUser(data, user)
+        setTokenAndUser(token, user)
 
 
 
