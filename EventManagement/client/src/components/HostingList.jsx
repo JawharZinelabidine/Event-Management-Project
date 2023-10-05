@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment'
 import axios from "axios";
+import Remove from './Remove.jsx'
 
 
 const HostingList = ({ event, switchView, myUser, remove }) => {
 
     const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your presence!')
+    const [removeModal, setRemoveModal] = useState(false)
+
+
+    const toggleRemoveModal = () => {
+
+        setRemoveModal(!removeModal)
+    }
 
     const numberOfAttendees = async () => {
         const { data } = await axios.get('http://localhost:3000/api/attendees-users/' + event.id)
@@ -30,6 +38,8 @@ const HostingList = ({ event, switchView, myUser, remove }) => {
         <>
 
             <div className="event-card">
+                {removeModal && <Remove remove={remove} toggle={toggleRemoveModal} event={event} />}
+
                 <img src={event.imageUrl} alt="no content" />
                 <div className="event-type">Organized by: {myUser.user.name}</div>
                 <div className="event-type">{event.type}</div>
@@ -39,7 +49,7 @@ const HostingList = ({ event, switchView, myUser, remove }) => {
                 <p className="event-description">{event.details.substring(0, 93)}...</p>
                 <div className="event-bottom-card">
                     <button className="participate" onClick={() => { switchView('updateEvent', event) }}>Update</button>
-                    <button className="participate" onClick={() => { remove(event.id) }}>Remove</button>
+                    <button className="participate" onClick={toggleRemoveModal}>Remove</button>
                 </div>
             </div>
         </>

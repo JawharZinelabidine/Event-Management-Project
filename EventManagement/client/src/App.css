@@ -540,3 +540,60 @@ input[type='file'] {
   width: 90px;
 
 }
+
+.overlay {
+
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(49, 49, 49, 0.8);
+}
+
+.modalContent {
+  position: absolute;
+  left: 50%;
+  top: 110%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background-color: #533a71;
+  padding: 84px 88px;
+  border-radius: 3px;
+  max-width: 600px;
+  min-width: 500px;
+  max-height: 600px;
+  min-height: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.modalContent h2 {
+
+  padding-bottom: 60px;
+  font-size: 30px;
+  color: #fdf4dc;
+
+}
+
+.modal-btn {
+  background-color: white;
+  max-width: 100px;
+  min-width: 90px;
+  border: none;
+  color: black;
+  padding: 12px 10px;
+  margin-left: 3%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 3px;
+}
+
+.modal-btn:hover {
+  background-color: #fdf4dc;
+  cursor: pointer;
+}
