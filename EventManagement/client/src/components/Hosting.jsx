@@ -2,7 +2,7 @@ import React from "react";
 import HostingList from "./HostingList.jsx";
 
 
-const EventList = ({ events, users, switchView, myUser, remove }) => {
+const Hosting = ({ events, switchView, myUser, remove }) => {
 
     const sortedEvents = events.slice().sort((a, b) => new Date(a.date) - new Date(b.date))
 
@@ -28,4 +28,4 @@ const EventList = ({ events, users, switchView, myUser, remove }) => {
 }
 
 
-export default EventList
+export default Hosting

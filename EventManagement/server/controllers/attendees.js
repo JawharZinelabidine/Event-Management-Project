@@ -36,6 +36,22 @@ module.exports = {
             res.status(500).send(error)
         }
     },
+    getAllAttendees: async (req, res) => {
+        const { eventsID } = req.params
+        try {
+            const result = await Users.findAll({
+                include: {
+                    model: Events,
+                    as: 'Attendee',
+                    where: { id: eventsID },
+                },
+            });
+            res.status(200).json(result);
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error)
+        }
+    },
     removeAttendee: async (req, res) => {
         const { users_ID, events_ID } = req.params
         try {
