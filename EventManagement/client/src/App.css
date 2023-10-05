@@ -394,6 +394,8 @@ a {
 .redirect:hover {
 
   cursor: pointer;
+  background-color: #fdf4dc;
+
 }
 
 
