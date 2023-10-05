@@ -8,7 +8,7 @@ import Signup from './components/Signup.jsx'
 import CreateEvent from './components/CreateEvent.jsx'
 import Going from './components/Going.jsx'
 import Hosting from './components/Hosting.jsx'
-import UpdateEvent from './components/UpdateEvent.jsx'
+import Search from './Search.jsx'
 
 function App() {
 
@@ -18,7 +18,7 @@ function App() {
   const [events, setEvents] = useState([])
   const [users, setUsers] = useState([])
   const [clickedEvent, setClickedEvent] = useState({})
-
+  const [name, setName] = useState('')
 
 
   const createToken = (userToken, user) => {
@@ -40,8 +40,6 @@ function App() {
     }
   }
 
-
-
   const fetchUsers = async () => {
 
     try {
@@ -58,8 +56,6 @@ function App() {
 
   }
 
-
-
   const fetchEvents = async () => {
 
     try {
@@ -74,7 +70,6 @@ function App() {
     }
 
   }
-
 
   const createEvent = async (event) => {
 
@@ -117,7 +112,6 @@ function App() {
 
   }
 
-
   const participate = async (users_ID, events_ID) => {
 
     try {
@@ -130,10 +124,10 @@ function App() {
 
   }
 
-
   useEffect(() => {
 
     fetchUsers()
+
   }, [])
 
   const switchView = (view, event) => {
@@ -153,14 +147,11 @@ function App() {
   }
 
 
-
   if (!token) {
     getToken()
     if (view === 'signup') return <Signup switchView={switchView} />
     else return <Login setTokenAndUser={createToken} switchView={switchView} />
   }
-
-
 
   return (
     <>
@@ -168,7 +159,7 @@ function App() {
       <nav className="nav">
         <div className="container">
           <div className="logo">
-            <h1 onClick={() => { switchView('eventList'); fetchEvents() }}>Eventify</h1>
+            <h1 onClick={() => { switchView('eventList'); fetchEvents(); setName('') }}>Eventify</h1>
           </div>
           <div id="mainListDiv" className="main_list">
             <ul className="navlinks">
@@ -176,11 +167,13 @@ function App() {
               <li onClick={() => { switchView('going'); fetchEvents() }}>Going</li>
               <li onClick={() => { switchView('hosting'); fetchEvents() }}>Hosting</li>
               <li id='logout' onClick={() => { emptyLocalStorge(); setToken(null) }}>Log out</li>
+
             </ul>
           </div>
         </div>
       </nav>
       <section className="home">
+        {view === 'eventList' && <Search filter={setName} />}
         {view === 'eventList' && <h1 className='header'>Welcome to the Internet's Best Event Website!</h1>}
         {view === 'going' && <h1 className='header'>Your Upcoming Events!</h1>}
         {view === 'hosting' && <h1 className='header'>Your Events</h1>}
@@ -189,11 +182,9 @@ function App() {
 
       </section>
       <div className='display'>
-        {view === 'eventList' && <EventList events={events} users={users} switchView={switchView} participate={participate} myUser={currentUser} fetchEvents={fetchEvents} />}
+        {view === 'eventList' && <EventList events={events} users={users} switchView={switchView} participate={participate} myUser={currentUser} fetchEvents={fetchEvents} name={name} />}
         {view === 'going' && <Going events={events} users={users} switchView={switchView} myUser={currentUser} />}
         {view === 'hosting' && <Hosting clickedEvent={clickedEvent} events={events} users={users} switchView={switchView} myUser={currentUser} remove={removeEvent} update={updateEvent} />}
-
-
 
       </div>
 

@@ -6,7 +6,7 @@ import axios from "axios";
 const EventDetails = ({ clickedEvent, myUser, participate, fetchEvents }) => {
 
     const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.user.id));
-    const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your presence!')
+    const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your attendance!')
 
 
     const deleteEvent = async (userID, eventID) => {
@@ -44,7 +44,7 @@ const EventDetails = ({ clickedEvent, myUser, participate, fetchEvents }) => {
         else if (attendeesCount === 1) {
             setAttendeeNumber(attendeesCount + ' person attending!')
         }
-        else setAttendeeNumber('Be the first to confirm your presence!')
+        else setAttendeeNumber('Be the first to confirm your attendance!')
 
     }
 

@@ -50,7 +50,7 @@ const Going = ({ myUser, users, switchView, events }) => {
 
                 {sortedEvents.map((event) => {
 
-                    return <GoingList key={event.events_id} event={event} myUser={myUser} remove={deleteEvent} users={users} switchView={switchView} events={events} />
+                    return <GoingList key={event.id} event={event} myUser={myUser} remove={deleteEvent} users={users} switchView={switchView} events={events} />
                 })}
 
             </div>

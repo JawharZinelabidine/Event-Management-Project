@@ -519,7 +519,25 @@ input[type="submit"]:hover {
   border-radius: 8px;
 }
 
+#cancel-button {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin-left: 460px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 8px;
+}
+
 #add-event-buttons:hover {
+  background-color: #fdf4dc;
+  cursor: pointer;
+}
+
+#cancel-button:hover {
   background-color: #fdf4dc;
   cursor: pointer;
 }
@@ -616,4 +634,41 @@ input[type='file'] {
 
 .active-modal {
   overflow-y: hidden;
+}
+
+#search {
+  max-width: 60%;
+  width: 25%;
+  margin-left: 100px;
+  margin-top: 50px;
+  border-radius: 4px;
+  overflow: hidden;
+  border-top: 1px solid #eee;
+  border: transparent;
+  padding: 10px;
+
+}
+
+#searchBtn {
+  background-color: #fdf4dc;
+  color: black;
+  padding: 9.1px 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 3px;
+  font-size: 14.5px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+  border-top: 1px solid #eee;
+  border: transparent;
+  font-weight: 550;
+  border-radius: 4px;
+
+
+}
+
+#searchBtn:hover {
+  background-color: white;
+  cursor: pointer;
 }

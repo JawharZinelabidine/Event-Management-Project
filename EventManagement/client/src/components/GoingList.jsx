@@ -5,7 +5,7 @@ import axios from "axios";
 const GoingList = ({ event, myUser, remove, switchView, users, events }) => {
 
 
-    const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your presence!')
+    const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your attendance!')
 
 
     const numberOfAttendees = async () => {
@@ -17,7 +17,7 @@ const GoingList = ({ event, myUser, remove, switchView, users, events }) => {
         else if (attendeesCount === 1) {
             setAttendeeNumber(attendeesCount + ' person attending!')
         }
-        else setAttendeeNumber('Be the first to confirm your presence!')
+        else setAttendeeNumber('Be the first to confirm your attendance!')
 
     }
 

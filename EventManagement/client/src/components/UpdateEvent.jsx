@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 
 
-const UpdateEvent = ({ clickedEvent, user, switchView, update, toggle }) => {
+const UpdateEvent = ({ clickedEvent, user, update, toggle }) => {
 
     const [event, setEvent] = useState({
         name: clickedEvent.name, date: clickedEvent.date.replace('Z', ''), organizer: user.user.id, type: clickedEvent.type,
@@ -47,19 +47,20 @@ const UpdateEvent = ({ clickedEvent, user, switchView, update, toggle }) => {
             <div className="overlay" onClick={toggle}></div>
             <div className="updateForm" onSubmit={handleSubmit} >
                 <form >
-                    <label for="name">Update Name</label>
+                    <label htmlFor="name">Update Name</label>
                     <input type="text" name="name" placeholder={event.name} onChange={handleChange} />
-                    <label for="type">Update Type</label>
+                    <label htmlFor="type">Update Type</label>
                     <input type="text" name="type" placeholder={event.type} onChange={handleChange} />
-                    <label for="imageUrl">Update Image</label>
+                    <label htmlFor="imageUrl">Update Image</label>
                     <input type="file" name="imageUrl" placeholder={event.imageUrl} onChange={handleImage} />
-                    <label for="date">Update Date</label>
+                    <label htmlFor="date">Update Date</label>
                     <input type="datetime-local" name="date" onChange={handleChange} />
-                    <label for="details">Update Details</label>
+                    <label htmlFor="details">Update Details</label>
                     <input type="text" name="details" placeholder={event.details} onChange={handleChange} />
-                    <label for="location">Update Location</label>
+                    <label htmlFor="location">Update Location</label>
                     <input type="text" name="location" placeholder={event.location} onChange={handleChange} />
                     <input type="submit" id="add-event-buttons" />
+                    <button id="cancel-button" onClick={toggle}>Cancel</button>
                 </form>
             </div>
         </>

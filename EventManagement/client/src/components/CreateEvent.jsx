@@ -42,17 +42,17 @@ const CreateEvent = ({ user, add, switchView }) => {
 
         <div className="addForm" >
             <form onSubmit={handleSubmit}>
-                <label for="name">Event Name</label>
+                <label htmlFor="name">Event Name</label>
                 <input type="text" name="name" onChange={handleChange} />
-                <label for="type" >Event Type</label>
+                <label htmlFor="type" >Event Type</label>
                 <input type="text" name="type" onChange={handleChange} />
-                <label for="imageUrl">Event Image</label>
+                <label htmlFor="imageUrl">Event Image</label>
                 <input type="file" name="imageUrl" onChange={handleImage} />
-                <label for="date">Event Date</label>
+                <label htmlFor="date">Event Date</label>
                 <input type="datetime-local" name="date" onChange={handleChange} />
-                <label for="details">Event Details</label>
+                <label htmlFor="details">Event Details</label>
                 <input type="text" name="details" onChange={handleChange} />
-                <label for="location">Event Location</label>
+                <label htmlFor="location">Event Location</label>
                 <input type="text" name="location" onChange={handleChange} />
                 <input type="submit" id="add-event-buttons" />
             </form>

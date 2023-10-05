@@ -5,7 +5,7 @@ import axios from "axios";
 const EventListItems = ({ event, users, switchView, participate, myUser, fetchEvents }) => {
 
 
-    const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your presence!')
+    const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your attendance!')
 
 
     const user = users.slice().find((user) => {
@@ -56,7 +56,7 @@ const EventListItems = ({ event, users, switchView, participate, myUser, fetchEv
         else if (attendeesCount === 1) {
             setAttendeeNumber(attendeesCount + ' person attending!')
         }
-        else setAttendeeNumber('Be the first to confirm your presence!')
+        else setAttendeeNumber('Be the first to confirm your attendance!')
 
     }
 
