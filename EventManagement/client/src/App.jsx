@@ -118,9 +118,6 @@ function App() {
   }
 
 
-
-
-
   const participate = async (users_ID, events_ID) => {
 
     try {
@@ -188,14 +185,13 @@ function App() {
         {view === 'going' && <h1 className='header'>Your Upcoming Events!</h1>}
         {view === 'hosting' && <h1 className='header'>Your Events</h1>}
         {view === 'createEvent' && <CreateEvent user={currentUser} add={createEvent} switchView={switchView} />}
-        {view === 'updateEvent' && <UpdateEvent clickedEvent={clickedEvent} user={currentUser} switchView={switchView} update={updateEvent} />}
         {view === 'eventDetails' && <EventDetails clickedEvent={clickedEvent} myUser={currentUser} participate={participate} fetchEvents={fetchEvents} />}
 
       </section>
       <div className='display'>
         {view === 'eventList' && <EventList events={events} users={users} switchView={switchView} participate={participate} myUser={currentUser} fetchEvents={fetchEvents} />}
         {view === 'going' && <Going events={events} users={users} switchView={switchView} myUser={currentUser} />}
-        {view === 'hosting' && <Hosting events={events} users={users} switchView={switchView} myUser={currentUser} remove={removeEvent} />}
+        {view === 'hosting' && <Hosting clickedEvent={clickedEvent} events={events} users={users} switchView={switchView} myUser={currentUser} remove={removeEvent} update={updateEvent} />}
 
 
 
