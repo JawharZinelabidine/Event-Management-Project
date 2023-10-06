@@ -6,7 +6,7 @@ const EventListItems = ({ event, users, switchView, participate, myUser, fetchEv
 
 
     const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your attendance!')
-
+    const [attendeeCount, setAttendeeCount] = useState(0)
 
     const user = users.slice().find((user) => {
         return user.id === event.organizer
@@ -37,10 +37,14 @@ const EventListItems = ({ event, users, switchView, participate, myUser, fetchEv
         if (buttonLabel === 'Participate') {
             newLabel = 'Going!'
             participate(myUser.user.id, event.id)
+            numberOfAttendees()
+
         }
         else {
             newLabel = 'Participate'
             deleteEvent(myUser.user.id, thisEvent.id)
+            numberOfAttendees()
+
         }
         setButtonLabel(newLabel);
         localStorage.setItem('participate' + thisEvent.id + '-' + myUser.user.id, newLabel);
@@ -49,12 +53,12 @@ const EventListItems = ({ event, users, switchView, participate, myUser, fetchEv
 
     const numberOfAttendees = async () => {
         const { data } = await axios.get('http://localhost:3000/api/attendees-users/' + thisEvent.id)
-        const attendeesCount = data.length
-        if (attendeesCount > 1) {
-            setAttendeeNumber(attendeesCount + ' people attending!')
+        setAttendeeCount(data.length)
+        if (attendeeCount > 1) {
+            setAttendeeNumber(attendeeCount + ' people attending!')
         }
-        else if (attendeesCount === 1) {
-            setAttendeeNumber(attendeesCount + ' person attending!')
+        else if (attendeeCount === 1) {
+            setAttendeeNumber(attendeeCount + ' person attending!')
         }
         else setAttendeeNumber('Be the first to confirm your attendance!')
 

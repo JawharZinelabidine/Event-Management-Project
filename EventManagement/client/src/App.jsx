@@ -8,7 +8,7 @@ import Signup from './components/Signup.jsx'
 import CreateEvent from './components/CreateEvent.jsx'
 import Going from './components/Going.jsx'
 import Hosting from './components/Hosting.jsx'
-import Search from './Search.jsx'
+import Search from './components/Search.jsx'
 
 function App() {
 
@@ -127,6 +127,7 @@ function App() {
   useEffect(() => {
 
     fetchUsers()
+
 
   }, [])
 

@@ -30,11 +30,11 @@ const Search = ({ filter }) => {
 
 
     return (
-        <>
-            <input type='search' id='search' placeholder='Search event name' value={filterBy} onChange={handleChange} onKeyUp={handleEnter} />
-            <button id="searchBtn" onClick={handleSearch}>Search Events</button>
+        <div className="searchContainer">
+            <input type='search' id='search' placeholder='Search event' value={filterBy} onChange={handleChange} onKeyUp={handleEnter} />
+            <button id="searchBtn" onClick={handleSearch}></button>
+        </div>
 
-        </>
     )
 }
 

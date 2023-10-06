@@ -18,7 +18,10 @@ module.exports = {
     },
     addEvent: async (req, res) => {
         const { name, date, organizer, type, imageUrl, details, location } = req.body
+        // console.log(imageUrl)
+        // const imageBase64 = imageUrl.split(';base64,').pop();
         try {
+            // const result = await cloudinary.uploader.upload(`data:image/jpeg;base64,${imageBase64}`);
             const event = await Events.create({ name, date, organizer, type, imageUrl, details, location });
             res.status(201).json(event);
         } catch (error) {

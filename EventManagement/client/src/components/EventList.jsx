@@ -7,7 +7,7 @@ const EventList = ({ events, users, switchView, participate, myUser, fetchEvents
     const sortedEvents = events.slice().sort((a, b) => new Date(a.date) - new Date(b.date))
 
     const filteredEvents = sortedEvents.slice().filter((event) => {
-        if (name) return event.name.toLowerCase().includes(name.toLowerCase())
+        if (name) return event.name.toLowerCase().includes(name.toLowerCase()) || event.type.toLowerCase().includes(name.toLowerCase())
         else return event
     })
 

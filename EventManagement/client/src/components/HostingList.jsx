@@ -6,7 +6,7 @@ import UpdateEvent from "./UpdateEvent.jsx";
 
 const HostingList = ({ event, switchView, myUser, remove, update, clickedEvent }) => {
 
-    const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your attendance!')
+    const [attendeeNumber, setAttendeeNumber] = useState('No attendees yet')
     const [removeModal, setRemoveModal] = useState(false)
     const [updateModal, setUpdateModal] = useState(false)
 
@@ -32,7 +32,7 @@ const HostingList = ({ event, switchView, myUser, remove, update, clickedEvent }
         else if (attendeesCount === 1) {
             setAttendeeNumber(attendeesCount + ' person attending!')
         }
-        else setAttendeeNumber('Be the first to confirm your attendance!')
+        else setAttendeeNumber('No attendees yet')
 
     }
 
