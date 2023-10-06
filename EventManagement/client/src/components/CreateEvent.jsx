@@ -2,9 +2,17 @@ import React, { useState } from "react";
 
 
 
-const CreateEvent = ({ user, add, switchView }) => {
+const CreateEvent = ({ user, add, switchView, fetchEvents }) => {
 
-    const [event, setEvent] = useState({ organizer: user.user.id })
+    const [event, setEvent] = useState({
+        organizer: user.user.id,
+        name: '',
+        date: '',
+        type: '',
+        imageUrl: '',
+        details: '',
+        location: ''
+    })
 
 
     const handleChange = (e) => {
@@ -19,13 +27,9 @@ const CreateEvent = ({ user, add, switchView }) => {
     }
 
     const handleImage = (e) => {
-        const name = e.target.name
         const file = e.target.files[0]
-        if (file) {
-            const imageURL = URL.createObjectURL(file)
-            setEvent({ ...event, [name]: imageURL })
+        setEvent({ ...event, imageUrl: file })
 
-        }
     }
 
     const handleSubmit = (e) => {
@@ -33,6 +37,7 @@ const CreateEvent = ({ user, add, switchView }) => {
         e.preventDefault()
         add(event)
         switchView('eventList')
+
 
     }
 

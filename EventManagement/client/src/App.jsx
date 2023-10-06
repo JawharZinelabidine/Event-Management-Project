@@ -72,15 +72,25 @@ function App() {
   }
 
   const createEvent = async (event) => {
-
     try {
-      const { data } = await axios.post('http://localhost:3000/api/events', event)
-      console.log(data)
-      fetchUsers()
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', event.name);
+      formDataToSend.append('type', event.type);
+      formDataToSend.append('date', event.date);
+      formDataToSend.append('description', event.description);
+      formDataToSend.append('image', event.imageUrl);
+      formDataToSend.append('details', event.details);
+      formDataToSend.append('location', event.location);
+      formDataToSend.append('organizer', event.organizer);
+      const { data } = await axios.post('http://localhost:3000/api/events', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log('Event created:', data);
     } catch (error) {
-      console.log(error)
-
-
+      console.error('Error creating event:', error);
     }
 
   }
@@ -88,13 +98,24 @@ function App() {
   const updateEvent = async (event, id) => {
 
     try {
-      const { data } = await axios.put('http://localhost:3000/api/events/' + id, event)
-      console.log(data)
-      fetchUsers()
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', event.name);
+      formDataToSend.append('type', event.type);
+      formDataToSend.append('date', event.date);
+      formDataToSend.append('description', event.description);
+      formDataToSend.append('image', event.imageUrl);
+      formDataToSend.append('details', event.details);
+      formDataToSend.append('location', event.location);
+      formDataToSend.append('organizer', event.organizer);
+      const { data } = await axios.put('http://localhost:3000/api/events/' + id, formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log('Event created:', data);
     } catch (error) {
-      console.log(error)
-
-
+      console.error('Error creating event:', error);
     }
 
   }
@@ -127,7 +148,6 @@ function App() {
   useEffect(() => {
 
     fetchUsers()
-
 
   }, [])
 
@@ -178,7 +198,7 @@ function App() {
         {view === 'eventList' && <h1 className='header'>Welcome to the Internet's Best Event Website!</h1>}
         {view === 'going' && <h1 className='header'>Your Upcoming Events!</h1>}
         {view === 'hosting' && <h1 className='header'>Your Events</h1>}
-        {view === 'createEvent' && <CreateEvent user={currentUser} add={createEvent} switchView={switchView} />}
+        {view === 'createEvent' && <CreateEvent user={currentUser} add={createEvent} switchView={switchView} fetchEvents={fetchEvents} />}
         {view === 'eventDetails' && <EventDetails clickedEvent={clickedEvent} myUser={currentUser} participate={participate} fetchEvents={fetchEvents} />}
 
       </section>

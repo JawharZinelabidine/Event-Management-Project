@@ -22,13 +22,9 @@ const UpdateEvent = ({ clickedEvent, user, update, toggle }) => {
 
 
     const handleImage = (e) => {
-        const name = e.target.name
         const file = e.target.files[0]
-        if (file) {
-            const imageURL = URL.createObjectURL(file)
-            setEvent({ ...event, [name]: imageURL })
+        setEvent({ ...event, imageUrl: file })
 
-        }
     }
 
     const handleSubmit = (e) => {
