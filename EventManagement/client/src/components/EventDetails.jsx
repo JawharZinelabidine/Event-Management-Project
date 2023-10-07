@@ -5,7 +5,7 @@ import axios from "axios";
 
 const EventDetails = ({ clickedEvent, myUser, participate, fetchEvents }) => {
 
-    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.user.id));
+    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate-' + clickedEvent.id + '-' + myUser.user.id) || 'Participate');
     const [attendeeNumber, setAttendeeNumber] = useState('Be the first to confirm your attendance!')
 
 
@@ -26,23 +26,31 @@ const EventDetails = ({ clickedEvent, myUser, participate, fetchEvents }) => {
         if (buttonLabel === 'Participate') {
             newLabel = 'Going!'
             participate(myUser.user.id, clickedEvent.id)
+            localStorage.setItem('participate-' + clickedEvent.id + '-' + myUser.user.id, newLabel)
         }
         else {
             newLabel = 'Participate'
             deleteEvent(myUser.user.id, clickedEvent.id)
+            localStorage.removeItem('participate-' + clickedEvent.id + '-' + myUser.user.id)
+
         }
         setButtonLabel(newLabel);
-        localStorage.setItem('participate' + clickedEvent.id + '-' + myUser.user.id, newLabel);
+        ;
     };
 
     const numberOfAttendees = async () => {
-        const { data } = await axios.get('http://localhost:3000/api/attendees-users/' + clickedEvent.id)
-        const attendeesCount = data.length
-        if (attendeesCount > 1) {
-            setAttendeeNumber(attendeesCount + ' people attending!')
+        const attendees = Object.keys(localStorage)
+        let attendeeCounter = 0
+        for (let i = 0; i < attendees.length; i++) {
+            if (+attendees[i].split('-')[1] === clickedEvent.id) {
+                attendeeCounter++
+            }
         }
-        else if (attendeesCount === 1) {
-            setAttendeeNumber(attendeesCount + ' person attending!')
+        if (attendeeCounter > 1) {
+            setAttendeeNumber(attendeeCounter + ' people attending!')
+        }
+        else if (attendeeCounter === 1) {
+            setAttendeeNumber(attendeeCounter + ' person attending!')
         }
         else setAttendeeNumber('Be the first to confirm your attendance!')
 
@@ -50,7 +58,6 @@ const EventDetails = ({ clickedEvent, myUser, participate, fetchEvents }) => {
 
     useEffect(() => {
 
-        setButtonLabel(localStorage.getItem('participate' + clickedEvent.id + '-' + myUser.user.id))
         numberOfAttendees()
 
     })

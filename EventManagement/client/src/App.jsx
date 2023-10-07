@@ -125,6 +125,11 @@ function App() {
     try {
       await axios.delete('http://localhost:3000/api/events/' + id)
       fetchUsers()
+      for (let i = 0; i < attendees.length; i++) {
+        if (+attendees[i].split('-')[1] === id) {
+          localStorage.removeItem(attendees[i])
+        }
+      }
     } catch (error) {
       console.log(error)
 
@@ -148,6 +153,7 @@ function App() {
   useEffect(() => {
 
     fetchUsers()
+    fetchEvents()
 
   }, [])
 

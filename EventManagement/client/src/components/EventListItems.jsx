@@ -17,7 +17,7 @@ const EventListItems = ({ event, users, switchView, participate, myUser, fetchEv
 
 
 
-    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate' + thisEvent.id + '-' + myUser.user.id) || 'Participate');
+    const [buttonLabel, setButtonLabel] = useState(localStorage.getItem('participate-' + thisEvent.id + '-' + myUser.user.id) || 'Participate');
 
 
     const deleteEvent = async (userID, eventID) => {
@@ -32,28 +32,39 @@ const EventListItems = ({ event, users, switchView, participate, myUser, fetchEv
 
     }
 
-    const toggleLabel = () => {
+    const toggleLabel = async () => {
         let newLabel = ''
         if (buttonLabel === 'Participate') {
             newLabel = 'Going!'
-            participate(myUser.user.id, event.id)
+            localStorage.setItem('participate-' + thisEvent.id + '-' + myUser.user.id, newLabel)
+            setButtonLabel(newLabel);
             numberOfAttendees()
+            await participate(myUser.user.id, thisEvent.id)
 
         }
         else {
             newLabel = 'Participate'
-            deleteEvent(myUser.user.id, thisEvent.id)
+            localStorage.removeItem('participate-' + thisEvent.id + '-' + myUser.user.id)
             numberOfAttendees()
+            setButtonLabel(newLabel);
+            await deleteEvent(myUser.user.id, thisEvent.id)
+
 
         }
-        setButtonLabel(newLabel);
-        localStorage.setItem('participate' + thisEvent.id + '-' + myUser.user.id, newLabel);
+
+        ;
     };
 
 
     const numberOfAttendees = async () => {
-        const { data } = await axios.get('http://localhost:3000/api/attendees-users/' + thisEvent.id)
-        setAttendeeCount(data.length)
+        const attendees = Object.keys(localStorage)
+        let attendeeCounter = 0
+        for (let i = 0; i < attendees.length; i++) {
+            if (+attendees[i].split('-')[1] === thisEvent.id) {
+                attendeeCounter++
+            }
+        }
+        setAttendeeCount(attendeeCounter)
         if (attendeeCount > 1) {
             setAttendeeNumber(attendeeCount + ' people attending!')
         }

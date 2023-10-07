@@ -25,7 +25,7 @@ const Going = ({ myUser, users, switchView, events }) => {
         try {
             await axios.delete('http://localhost:3000/api/attendees/' + userID + '/' + eventID)
             fetchMyEvents()
-            localStorage.setItem('participate' + eventID + '-' + userID, 'Participate')
+            localStorage.removeItem('participate-' + eventID + '-' + userID)
 
         } catch (error) {
             console.log(error)
